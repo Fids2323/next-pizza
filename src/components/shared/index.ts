@@ -4,4 +4,7 @@ export { Header } from './Header';
 export { Container } from './Container'
 export { Title } from './Title';
 export { Categories } from './Categories'
+export {Filters} from './Filters'
+export {FilterCheckbox} from './FilterCheckbox'
+export {RangeSlider} from './RangeSlider'
 
