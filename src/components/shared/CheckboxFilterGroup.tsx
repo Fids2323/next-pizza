@@ -1,4 +1,6 @@
-import React from 'react';
+'use client'
+
+import React, { useState } from 'react';
 import { FilterCheckbox, FilterCheckboxProps } from './FilterCheckbox';
 import { Input } from '../ui';
 
@@ -7,7 +9,7 @@ type Item = FilterCheckboxProps;
 interface Props {
     title:string;
     items:Item[];
-    defaultItems?:Item[];
+    defaultItems:Item[];
     limit?:number;
     searchInputPlaceholder?:string;
     onChange?: (values:string[]) => void;
@@ -24,18 +26,33 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
   onChange,
   defaultValue,
   className}) => {
+
+  const [showAll, setShowAll] = useState(false)
+  const [searchValue, setSearchValue] = useState("");
+    
+  const list = showAll ? items.filter((item) => item.text.toLowerCase().includes(searchValue.toLowerCase())) : defaultItems.slice(0,limit);
+  
+  const handleChangeSearchInput = ( e:React.ChangeEvent<HTMLInputElement> ) => {
+    setSearchValue(e.target.value)
+  }
+  
+
   return (
     <div className={className}>
       <p className='text-lg font-bold mb-3'>{title}</p>
 
-      {/* Input search checkbox */}
-      <div className="mb-5">
-        <Input placeholder={searchInputPlaceholder} className='bg-gray-50 border-none'/>  
-      </div>  
+    {/* Input search checkbox */}
+    {
+      showAll && (
+        <div className="mb-5">
+          <Input onChange={handleChangeSearchInput} placeholder={searchInputPlaceholder} className='bg-gray-50 border-none'/>  
+        </div>  
+      )
+    }
 
       {/* List checkbox */}
       <div className="flex flex-col gap-4 pr-2 max-h-96 overflow-auto scrollbar">
-        {items.map((item,index)=>(
+        {list.map((item,index)=>(
           <FilterCheckbox 
             key={index}
             text = {item.text}
@@ -46,6 +63,15 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
           />
         ))}
       </div>
+
+        {items.length > limit && (
+          <div className={showAll ? 'border-t border-t-neutral-100 mt-4' : ''}>
+            <button onClick={() => setShowAll( !showAll )} className='text-primary mt-3'>
+              {showAll ? 'Скрыть' : '+ Показать все'}
+            </button>
+          </div>
+        )}
+
     </div>
   );
 };

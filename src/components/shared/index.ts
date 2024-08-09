@@ -7,4 +7,6 @@ export { Categories } from './Categories'
 export {Filters} from './Filters'
 export {FilterCheckbox} from './FilterCheckbox'
 export {RangeSlider} from './RangeSlider'
+export {ProductCard} from './ProductCard'
+export {ProductsGroupList} from './ProductsGroupList'
 
