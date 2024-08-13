@@ -1,5 +1,5 @@
 import { NextResponse,NextRequest} from "next/server";
-import { prisma } from "../../../prisma/prisma-client";
+import { prisma } from "../../../../prisma/prisma-client";
 
 
 
