@@ -9,4 +9,4 @@ export {FilterCheckbox} from './FilterCheckbox'
 export {RangeSlider} from './RangeSlider'
 export {ProductCard} from './ProductCard'
 export {ProductsGroupList} from './ProductsGroupList'
-
+export {SearchInput} from './SearchInput'
