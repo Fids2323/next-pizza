@@ -1,5 +1,5 @@
 export {Button} from './button'
-import { FIlters } from './../shared/Filters';
+import { Filters } from './../shared/Filters';
 export { Checkbox } from './checkbox'
 export { Dialog } from './dialog'
 export { Drawer } from './drawer'
