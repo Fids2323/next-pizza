@@ -69,8 +69,9 @@ useClickAway(ref, () => {
               focused && 'visible opacity-100 top-12'
             )}>
 					{
-						products.map((product) => (
+						products.map((product,index) => (
 							<Link href={`/products/${product.id}`}
+								key={index}
 								onClick={onClickItem}
 							className='flex items-center gap-3 w-full px-3 py-2 hover:bg-primary/10'>
 								<img 
