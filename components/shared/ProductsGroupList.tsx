@@ -1,7 +1,6 @@
 "use client"
 import React from 'react';
 import { useIntersection } from 'react-use';
-
 import { Title } from './Title';
 import { cn } from '../../lib/utils';
 import { ProductCard } from './ProductCard';
@@ -42,7 +41,9 @@ React.useEffect(() => {
 						id={product.id}
 						name={product.name}
 						price={product.items[0].price}
-						imageUrl={product.imageUrl} />
+						imageUrl={product.imageUrl}
+						ingredients={product.ingredients}
+					/>
 				))}
 			</div>
 		</div>
