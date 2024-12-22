@@ -5,10 +5,11 @@ import {RangeSlider} from './RangeSlider'
 import { Input } from '../ui';
 import { CheckboxFilterGroup } from './CheckboxFilterGroup';
 import { useFilters,useQueryFilters,useIngredients} from '../../hooks';
+
 interface Props {
 className?: string;
 }
-
+useIngredients
 export const Filters: React.FC<Props> = ({ className }) => {
 	const {ingredients,loading} = useIngredients()
 	const filters = useFilters()
