@@ -31,6 +31,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 	items,
 	onClickAddCart
 }) => {
+	
 	const {
         size,
         type,
