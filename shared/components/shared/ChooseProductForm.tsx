@@ -3,21 +3,27 @@ import { cn } from '../../lib/utils';
 import { Title } from './Title';
 import { Button } from '../ui';
 
+/**
+ * Form choose product
+ */
+
 interface Props {
 	imageUrl: string;
 	className?: string;
 	name: string;
-	onClickAdd?: VoidFunction;
+	price: number;
+	loading?: boolean;
+	onSubmit?: VoidFunction;
 }
 
 export const ChooseProductForm: React.FC<Props> = ({
 	imageUrl,
 	className,
 	name,
-	onClickAdd
+	price,
+	loading,
+	onSubmit
 }) => {
-	const textDetails = '30 см, традиционное тесто 30';
-	const totalPrice = 350;
 	return (
 		<div className={cn(className, 'flex flex-1')}>
 			{/* Image */}
@@ -30,9 +36,9 @@ export const ChooseProductForm: React.FC<Props> = ({
 			</div>
 			<div className="w-[490px] bg-[#f8f7f7] p-7">
 				<Title text={name} size='md' className='font-extrabold mb-1' />
-				<p className='text-gray-400'>{textDetails}</p>
-				<Button className='h-[55px] px-10 text-base rounded-[18px] w-full mt-10'>
-					Добавить в корзину за {totalPrice}
+
+				<Button loading= {loading} onClick={() => onSubmit?.()} className='h-[55px] px-10 text-base rounded-[18px] w-full mt-10'>
+					Добавить в корзину за {price}
 				</Button>
 			</div>
 		</div>

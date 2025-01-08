@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const id = Number(params.id);
+    const id = Number(await params.id);
     const data = (await req.json()) as { quantity: number };
     const token = req.cookies.get('cartToken')?.value;
 

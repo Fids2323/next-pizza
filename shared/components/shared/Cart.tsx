@@ -1,9 +1,9 @@
 import React from 'react';
-import { CartDrawer } from './cart-drawer';
+import { CartDrawer } from './CartDrawer';
 import { Button } from '../ui/button';
 import { ArrowRight, ShoppingCart } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { useCart } from '@/hooks/use-cart';
+import { cn } from '../../lib/utils';
+import { useCart } from '../../hooks'; 
 
 interface Props {
   className?: string;
@@ -15,7 +15,7 @@ export const CartButton: React.FC<Props> = ({ className }) => {
   return (
     <CartDrawer>
       <Button
-        loading={loading}
+        //loading={loading}
         className={cn('group relative', { 'w-[105px]': loading }, className)}>
         <b>{totalAmount} ₽</b>
         <span className="h-full w-[1px] bg-white/30 mx-3" />
