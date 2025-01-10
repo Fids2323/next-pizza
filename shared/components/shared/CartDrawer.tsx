@@ -60,6 +60,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
 									details={item.pizzaSize && item.pizzaType ? getCartItemDetails(item.ingredients, item.pizzaType as PizzaType, item.pizzaSize as PizzaSize) : ''}
 									name={item.name}
 									price={item.price}
+									disabled={item.disabled}
 									onClickCountButton={(type) => onClickCountButton(item
 										.id,item.quantity,type
 									)}

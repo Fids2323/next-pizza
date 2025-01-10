@@ -14,7 +14,6 @@ export const Filters: React.FC<Props> = ({ className }) => {
 	const {ingredients,loading} = useIngredients()
 	const filters = useFilters()
 	useQueryFilters(filters)
-	console.log(1);
 
 	const items = ingredients.map((ingredient) => (
 		{
