@@ -2,18 +2,20 @@ import { cn } from '../../lib/utils';
 import React, { FC } from 'react'
 import Image from 'next/image';
 import { Button } from '../ui';
-import {  ArrowRight, ShoppingCart, User } from 'lucide-react';
+import { User } from 'lucide-react';
 import { Container } from './Container';
 import Link from 'next/link';
 import { CartButton, SearchInput } from '.';
 
 interface HeaderProps {
-  className?: string
+	className?: string
+	hasSearch?: boolean
+	hasCart?: boolean
 }
 
-export const Header: FC<HeaderProps> = ({ className }) => {
+export const Header: FC<HeaderProps> = ({ className,hasSearch = true,hasCart }) => {
   return (
-    <header className={cn('border border-b',className)}>
+    <header className={cn('border-b',className)}>
         <Container className='flex items-center justify-between py-8'>
             {/* {Left} */}
             <Link href='/'>
@@ -26,24 +28,23 @@ export const Header: FC<HeaderProps> = ({ className }) => {
             </div>
             </Link>
 
-            {/* Search input */}
-            <div className="mx-10 flex-1">
-              <SearchInput/>
-            </div>
-
+				{/* Search input */}
+				{hasSearch && (
+					<div className="mx-10 flex-1">
+						<SearchInput/>
+					</div>
+				)}
 
             {/* {right} */}
             <div  className='flex gap-3'> 
-                <Button variant='outline' className="flex items-center gap-1">
-                    <User size={16}/>
-                    Войти
+              <Button variant='outline' className="flex items-center gap-1">
+                <User size={16}/>
+                Войти
 					</Button>
-
-					<div>
-						<CartButton/>
-					</div>
-            </div>
-
+					{hasCart && (
+            <CartButton />
+          )}
+          </div>
         </Container>
     </header>
   )

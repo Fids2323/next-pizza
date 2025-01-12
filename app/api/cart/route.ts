@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
         ingredients: {
           every: {
             id: { in: data.ingredients },
-          },
+					},
         },
       },
     });
