@@ -19,24 +19,12 @@ import { useCartStore } from '../../store';
 import { PizzaSize, PizzaType } from '../../constants/pizza';
 import { Title } from './Title';
 import { cn } from '../../lib/utils';
+import { useCart } from '../../hooks';
 
-interface Props {
-	className?: string;
-}
 
-export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children, className }) => {
-	
-	const [totalAmount, items, fetchCartItems, updateItemQuantity, removeCartItem] = useCartStore(state => [
-		state.totalAmount,
-		state.items,
-		state.fetchCartItems,
-		state.updateItemQuantity,
-		state.removeCartItem,
-	])
-
-	useEffect(() => {
-		fetchCartItems()
-	}, [])
+export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
+	const {totalAmount,updateItemQuantity,items,removeCartItem} = useCart()
+	const [redirecting, setRedirecting] = React.useState(false);
 
 	const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => { 
 		const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
@@ -83,7 +71,11 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
 								<CartDrawerItem
 									id={item.id}
 									imageUrl={item.imageUrl}
-									details={item.pizzaSize && item.pizzaType ? getCartItemDetails(item.ingredients, item.pizzaType as PizzaType, item.pizzaSize as PizzaSize) : ''}
+									details={getCartItemDetails(
+										item.ingredients,
+										item.pizzaType as PizzaType,
+										item.pizzaSize as PizzaSize,
+									)}
 									name={item.name}
 									price={item.price}
 									disabled={item.disabled}
@@ -105,8 +97,10 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
 						</span>
 						<span className='font-bold text-lg'>{totalAmount} ₽</span>
 					</div>
-					<Link href='/cart'>
+					<Link href='/checkout'>
 						<Button
+							onClick={() => setRedirecting(true)}
+							loading={redirecting}
 							type='submit'
 							className='w-full h-12 text-base'>
 							Оформить заказ
