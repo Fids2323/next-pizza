@@ -7,11 +7,13 @@ import { useForm, SubmitHandler, FormProvider } from "react-hook-form"
 import { CheckoutAddressForm, CheckoutCart, CheckoutPersonalForm } from '../../../shared/components/shared/checkout';
 import { checkoutFormSchema, CheckoutFormValues } from '../../../shared/constants';
 import toast from 'react-hot-toast';
+import { useState } from 'react';
+//import { createOrder } from '../../actions';
 
 
 export default function CheckoutPage() { 
-	const [submitting, setSubmitting] = React.useState(false);
-	const {totalAmount,updateItemQuantity,items,removeCartItem} = useCart()
+	const [submitting, setSubmitting] = useState(false);
+	const {totalAmount,updateItemQuantity,items,removeCartItem,loading} = useCart()
 
 	const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => { 
 		const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
@@ -34,15 +36,15 @@ export default function CheckoutPage() {
 		try {
 		  setSubmitting(true);
 	
-		  //const url = await createOrder(data);
+		  const url = await createOrder(data);
 	
 		  toast.error('Заказ успешно оформлен! 📝 Переход на оплату... ', {
 			icon: '✅',
 		  });
 	
-		//   if (url) {
-		// 	location.href = url;
-		//   }
+		  if (url) {
+			location.href = url;
+		  }
 		} catch (err) {
 		  console.log(err);
 		  setSubmitting(false);
@@ -65,14 +67,15 @@ export default function CheckoutPage() {
 								onClickCountButton={onClickCountButton}
 								removeCartItem={removeCartItem}
 								items={items}
+								loading={loading}
 							/>
-							<CheckoutPersonalForm/>
-							<CheckoutAddressForm/>
+							<CheckoutPersonalForm className={loading ? 'opacity-40 pointer-events-none' : ''}/>
+							<CheckoutAddressForm className={loading ? 'opacity-40 pointer-events-none' : ''}/>
 						</div>
 
 						{/* Right block */}
 						<div className="w-[450px]">
-							<CheckoutSidebar totalAmount={totalAmount}/>
+							<CheckoutSidebar totalAmount={totalAmount} loading={loading || submitting}/>
 						</div>
 					</div>
 				</form>
