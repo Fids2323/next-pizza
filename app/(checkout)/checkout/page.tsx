@@ -8,7 +8,7 @@ import { CheckoutAddressForm, CheckoutCart, CheckoutPersonalForm } from '../../.
 import { checkoutFormSchema, CheckoutFormValues } from '../../../shared/constants';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
-//import { createOrder } from '../../actions';
+import { createOrder } from '../../actions';
 
 
 export default function CheckoutPage() { 
