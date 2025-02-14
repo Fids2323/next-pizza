@@ -3,9 +3,10 @@
 import { signIn } from 'next-auth/react';
 import React from 'react';
 import { Button, Dialog } from '../../../ui';
-import { DialogContent } from '../../../ui/dialog';
+import { DialogContent, DialogTitle } from '../../../ui/dialog';
 import { LoginForm } from './forms/LoginForm';
 import { RegisterForm } from './forms/RegisterForm';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 
 interface Props {
@@ -27,6 +28,9 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="w-[450px] bg-white p-10">
+      <DialogTitle>
+          <VisuallyHidden>Заголовок диалога</VisuallyHidden>
+        </DialogTitle>
         {type === 'login' ? (
           <LoginForm onClose={handleClose} />
         ) : (

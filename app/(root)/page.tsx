@@ -1,4 +1,4 @@
-import { Container, Title, TopBar, Filters , ProductsGroupList } from "../../shared/components/shared";
+import { Container, Title, TopBar, Filters , ProductsGroupList, Stories } from "../../shared/components/shared";
 import { prisma } from "../../prisma/prisma-client";
 import { Suspense } from "react";
 import { findPizzas } from "../../shared/lib";
@@ -15,6 +15,7 @@ export default async function Home({ searchParams }: { searchParams: GetSearchPa
 			</Container>
 			{/* Top bar Categories and Sort*/}
 			<TopBar categories={categories.filter((category) => category.products.length > 0 )}/>
+			<Stories/>
 			<Container className="pb-14 mt-10">
 				<div className="flex gap-[80px]">
 					{/* Filters */}

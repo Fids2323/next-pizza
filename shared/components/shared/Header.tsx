@@ -11,16 +11,15 @@ import toast from 'react-hot-toast';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession, signIn} from 'next-auth/react';
 
-interface HeaderProps {
-	className?: string
-	hasSearch?: boolean
-	hasCart?: boolean
+interface Props {
+  hasSearch?: boolean;
+  hasCart?: boolean;
+  className?: string;
 }
 
-export const Header: FC<HeaderProps> = ({ className,hasSearch = true,hasCart }) => {
+export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, className }) => {
   const router = useRouter();
   const [openAuthModal, setOpenAuthModal] = React.useState(false);
-  const { data: session } = useSession()
 
   const searchParams = useSearchParams();
 
@@ -44,36 +43,36 @@ export const Header: FC<HeaderProps> = ({ className,hasSearch = true,hasCart }) 
       }, 1000);
     }
   }, []);
-  
+
   return (
-    <header className={cn('border-b',className)}>
-        <Container className='flex items-center justify-between py-8'>
-            {/* {Left} */}
-            <Link href='/'>
-            <div className='flex items-center gap-4'>
-                <Image src='/logo.png' alt='Logo' width={35} height={35}/>
-                <div className="">
-                    <h1 className="text-2xl uppercase font-black">NEXT PIZZA</h1>
-                    <p className='text-sm text-gray-400 leading-3'>вкусней уже некуда</p>
-                </div>
+    <header className={cn('border-b', className)}>
+      <Container className="flex items-center justify-between py-8">
+        {/* Левая часть */}
+        <Link href="/">
+          <div className="flex items-center gap-4">
+            <Image src="/logo.png" alt="Logo" width={35} height={35} />
+            <div>
+              <h1 className="text-2xl uppercase font-black">Next Pizza</h1>
+              <p className="text-sm text-gray-400 leading-3">вкусней уже некуда</p>
             </div>
-            </Link>
-
-				{/* Search input */}
-				{hasSearch && (
-					<div className="mx-10 flex-1">
-						<SearchInput/>
-					</div>
-				)}
-
-            {/* {right} */}
-            <div  className='flex gap-3'> 
-              <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
-
-              <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
-					    {hasCart && (<CartButton />)}
           </div>
-        </Container>
+        </Link>
+
+        {hasSearch && (
+          <div className="mx-10 flex-1">
+            <SearchInput />
+          </div>
+        )}
+
+        {/* Правая часть */}
+        <div className="flex items-center gap-3">
+          <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
+
+          <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
+
+          {hasCart && <CartButton />}
+        </div>
+      </Container>
     </header>
-  )
-}
+  );
+};
